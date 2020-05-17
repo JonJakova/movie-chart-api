@@ -25,8 +25,9 @@ function generateQuery(db, showData) {
 }
 
 function loopInsert(db, showArray) {
-    showArray.forEach(show => {
+    showArray.forEach((show, i) => {
         generateQuery(db, show);
+        // getSeason(showArray[i].release_date)
     });
     // generateQuery(db, showArray[0]);
 }
@@ -34,16 +35,24 @@ function loopInsert(db, showArray) {
 function getSeason(date){
     const formatedDate = new Date(date);
     const month = formatedDate.getMonth() + 1;
-    if (3 <= month <= 5) {
+    console.log('date is', date);
+    console.log('month is ',month);
+    
+    if (month>2 && month<6) {
+      console.log('sp');
+      
       return 'spring';
     }
-    else if (6 <= month <= 8) {
+    else if (month>5 && month<9) {
+      console.log('sm');
       return 'summer';
     }
-    else if (9 <= month <= 11) {
+    else if (month>8 && month<12) {
+      console.log('fl');
       return 'fall';
     }
     else {
+      console.log('wt');
       return 'winter';
     }
   }
