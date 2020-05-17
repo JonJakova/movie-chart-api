@@ -10,6 +10,7 @@ const seasons = require('./controller/seasons');
 const page = require('./controller/page');
 const show = require('./controller/show');
 const keys = require('./keys');
+const updater = require('./scheduler/db_updater')
 
 const db = require('knex')({
     client: 'pg',
@@ -25,6 +26,8 @@ app.get('/', (req, res) => res.send('Working'));
 app.post('/seasons', seasons.handleSesons(db));
 app.get('/page', page.handlePage()); 
 app.post('/show', show.handleShow(db));
+
+updater.db_updater(db);
 
 app.listen(port, () => {
     console.log('Listing to port', port);
