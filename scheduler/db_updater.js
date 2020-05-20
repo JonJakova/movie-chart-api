@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const tList = require('./tag_updater');
+const keys = require('../Keys');
 
 const db_updater = (db) => {
   fetch(_upcomingURL)
@@ -49,21 +50,43 @@ function getTagName(show) {
 }
 
 function generateQuery(db, showData) {
-    let poster = 'https://image.tmdb.org/t/p/w500'+ showData.poster_path;
+  let poster = 'https://image.tmdb.org/t/p/w500'+ showData.poster_path;
+
+  if(showData.release_date){
     db.raw(
-        `insert into shows (name, tags, premiere, poster, description, season, tmdb_id) 
-        values (?,?,?,?,?,?,?)`, [
-            showData.title,
-            showData.genre_ids.join(', '),
-            showData.release_date,
-            poster,
-            showData.overview,
-            getSeason(showData.release_date),
-            showData.id
-        ]
-    )
-    .then((resp) => console.log(resp))
-    .catch((err) => console.log(err));
+      `insert into shows (name, tags, premiere, tba, poster, description, season, tmdb_id) 
+      values (?,?,?,?,?,?,?,?)`, [
+          showData.title,
+          showData.genre_ids.join(', '),
+          showData.release_date,
+          false,
+          poster,
+          showData.overview,
+          getSeason(showData.release_date),
+          showData.id
+      ]
+  )
+  .then((resp) => console.log(resp))
+  .catch((err) => console.log(err));
+  }
+  else {
+    db.raw(
+      `insert into shows (name, tags, premiere, tba, poster, description, season, tmdb_id) 
+      values (?,?,?,?,?,?,?)`, [
+          showData.title,
+          showData.genre_ids.join(', '),
+          showData.release_date,
+          true,
+          poster,
+          showData.overview,
+          getSeason(showData.release_date),
+          showData.id
+      ]
+  )
+  .then((resp) => console.log(resp))
+  .catch((err) => console.log(err));
+  }
+    
 }
 
 function getSeason(date){
@@ -87,4 +110,4 @@ module.exports = {
     db_updater
 }
 
-const _upcomingURL = 'https://api.themoviedb.org/3/movie/upcoming?api_key=0a92d74fda230695e431d6594c39afd2';
+const _upcomingURL = 'https://api.themoviedb.org/3/movie/upcoming?api_key='+ keys.keys.apiKey;

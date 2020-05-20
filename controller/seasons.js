@@ -1,6 +1,5 @@
 const handleSesons = (db) => (req, res) => {
     const {season, year} = req.body;
-    console.log(season, year);
 
     if(season === 'tbd'){
         db.select('id', 'name', 'poster').from('shows')
@@ -20,9 +19,3 @@ const handleSesons = (db) => (req, res) => {
 module.exports = {
     handleSesons
 }
-
-
-// db.select('name', 'poster', 'premiere', 'tba').from('shows')
-//         .where('season', '=', season.toLowerCase())
-//         .then(data => res.json(data))
-//         .catch(err => res.status(400).json(err));

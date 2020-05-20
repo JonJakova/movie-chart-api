@@ -9,9 +9,8 @@ app.use(cors());
 const seasons = require('./controller/seasons');
 const page = require('./controller/page');
 const show = require('./controller/show');
-const keys = require('./keys');
-const dbUpdate = require('./scheduler/db_updater');
-const tagUpdate = require('./scheduler/tag_updater');
+const keys = require('./Keys');
+const scheduler = require('./scheduler/scheduleUpdate');
 
 const db = require('knex')({
     client: 'pg',
@@ -28,9 +27,7 @@ app.post('/seasons', seasons.handleSesons(db));
 app.get('/page', page.handlePage()); 
 app.post('/show', show.handleShow(db));
 
-dbUpdate.db_updater(db);
-// tagUpdate.tag_updater(db);
-
+scheduler.scheduleUpdate(db);
 
 app.listen(port, () => {
     console.log('Listing to port', port);

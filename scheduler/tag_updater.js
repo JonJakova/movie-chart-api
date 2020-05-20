@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const keys = require('../Keys');
 
 const tag_updater = (db) => {
     fetch(_genresURL)
@@ -9,7 +10,6 @@ const tag_updater = (db) => {
 
 function mapIdToTag(tagArray) {
     const obj = {};
-    let updatedTagList = {};
 
     for (let i = 0; i < _generalTagList.length; i++) {
         if(!obj[_generalTagList[i].id]){
@@ -25,7 +25,7 @@ function mapIdToTag(tagArray) {
     }
 }
 
-const _genresURL = 'https://api.themoviedb.org/3/genre/movie/list?api_key=0a92d74fda230695e431d6594c39afd2&language=en-US';
+const _genresURL = 'https://api.themoviedb.org/3/genre/movie/list?api_key='+keys.keys.apiKey+'&language=en-US';
 
 let _generalTagList = [
     { id: 28, name: 'Action' },
