@@ -109,4 +109,4 @@ module.exports = {
     db_updater
 }
 
-const _upcomingURL = 'https://api.themoviedb.org/3/movie/upcoming?api_key='+ keys.keys.apiKey;
+const _upcomingURL = 'https://api.themoviedb.org/3/movie/upcoming?api_key='+ process.env.API_KEY;

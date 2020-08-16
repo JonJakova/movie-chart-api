@@ -25,7 +25,7 @@ function mapIdToTag(tagArray) {
     }
 }
 
-const _genresURL = 'https://api.themoviedb.org/3/genre/movie/list?api_key='+keys.keys.apiKey+'&language=en-US';
+const _genresURL = 'https://api.themoviedb.org/3/genre/movie/list?api_key='+process.env.API_KEY+'&language=en-US';
 
 let _generalTagList = [
     { id: 28, name: 'Action' },
