@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = 3002;
+const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 
@@ -29,8 +29,8 @@ app.get('/page', page.handlePage());
 app.post('/show', show.handleShow(db));
 
 scheduler.scheduleUpdate(db);
-tagUpdater.tag_updater(db);
-dbUpdater.db_updater(db);
+// tagUpdater.tag_updater(db);
+// dbUpdater.db_updater(db);
 
 app.listen(port, () => {
     console.log('Listing to port', port);
