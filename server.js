@@ -15,21 +15,21 @@ const dbUpdater = require('./scheduler/db_updater');
 const db = require('knex')({
     client: 'pg',
     connection: {
-        host : '127.0.0.1',
-        user : 'postgres',
-        password : process.env.DB_PASS,
-        database : 'movie_chart'
-    },
-  });
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false
+        }
+    }
+});
 
 app.get('/', (req, res) => res.send('Working'));
 app.post('/seasons', seasons.handleSesons(db));
-app.get('/page', page.handlePage()); 
+app.get('/page', page.handlePage());
 app.post('/show', show.handleShow(db));
 
 scheduler.scheduleUpdate(db);
-// tagUpdater.tag_updater(db);
-// dbUpdater.db_updater(db);
+tagUpdater.tag_updater(db);
+dbUpdater.db_updater(db);
 
 app.listen(port, () => {
     console.log('Listing to port', port);
