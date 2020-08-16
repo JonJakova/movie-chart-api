@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-const keys = require('../Keys');
 
 const tag_updater = (db) => {
     fetch(_genresURL)

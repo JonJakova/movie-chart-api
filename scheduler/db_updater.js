@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
 const tList = require('./tag_updater');
-const keys = require('../Keys');
 
 const db_updater = (db) => {
   fetch(_upcomingURL)

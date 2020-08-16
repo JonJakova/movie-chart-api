@@ -8,7 +8,6 @@ app.use(cors());
 const seasons = require('./controller/seasons');
 const page = require('./controller/page');
 const show = require('./controller/show');
-const keys = require('./Keys');
 const scheduler = require('./scheduler/scheduleUpdate');
 const tagUpdater = require('./scheduler/tag_updater')
 const dbUpdater = require('./scheduler/db_updater');
