@@ -66,7 +66,6 @@ function generateQuery(db, showData) {
           showData.id
       ]
   )
-  .then((resp) => console.log(resp))
   .catch((err) => console.log(err));
   }
   else {
